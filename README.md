@@ -14,6 +14,11 @@ Its already using: [feedparser ](http://code.google.com/p/feedparser/) for parsi
 Planning to use: [GCM For Chrome](http://developer.chrome.com/apps/cloudMessaging.html) for instant notification on chrome app, [Mandrill](http://mandrill.com/) as main mailing api.
 
 
+Guestbook
+-------
+Guestbook is a simple guestbook application that let users sign it with a comment. That's the first app that you create when getting into appengine so i decided to mantain the code as it is but just with a better template.
+
+
 Ps.:
 ======
 The project lacks of a good documentation and testing scripts. 

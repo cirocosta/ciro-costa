@@ -48,4 +48,4 @@ class Guestbook(webapp2.RequestHandler):
         greeting.put()
 
         query_params = {'guestbook_name': guestbook_name}
-        self.redirect('/?' + urllib.urlencode(query_params))
+        self.redirect('/guestbook/?' + urllib.urlencode(query_params))

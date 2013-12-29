@@ -1,31 +1,44 @@
 {%extends 'base/base.html'%}
-
 {%block title%}Guestbook{%endblock%}
 {%block extreahead%}
-<link rel="stylesheet" type="text/css" href="/static/main.css">
+<link rel="stylesheet" type="text/css" href="/static/guestbook/index.css">
 {%endblock%}
-
 {%block content%}
-    {% for greeting in greetings %}
-      {% if greeting.author %}
-        <b>{{ greeting.author.nickname() }}</b> wrote:
-      {% else %}
-       An anonymous person wrote:
-      {% endif %}
-      <blockquote>{{ greeting.content }}</blockquote>
-    {% endfor %}
+<div class="jumbotron text-center">
+  <h1>My Guestbook!</h2>
+</div>
 
-    <form action="/sign?guestbook_name={{ guestbook_name }}" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Sign Guestbook"></div>
-    </form>
+<div class="container">
 
-    <hr>
+  <div id="messages_container">
+  {% for greeting in greetings %}
+    {% if greeting.author %}
+      <strong>{{ greeting.author.nickname() }}</strong> wrote:
+    {% else %}
+     An anonymous person wrote:
+    {% endif %}
+    <blockquote>{{ greeting.content }}</blockquote>
+  {% endfor %}
+  </div>
 
-    <form>Guestbook name:
-      <input value="{{ guestbook_name }}" name="guestbook_name">
-      <input type="submit" value="switch">
-    </form>
+  <div class="row">
+    <div class="col-md-7">
+      <form action="/guestbook/sign?guestbook_name={{ guestbook_name }}" method="post">
+        <label>Your message to the author</label>
+        <div><textarea class="form-control" name="content" rows="3" cols="60"></textarea></div>
+        <div><input type="submit" class="btn btn-primary" value="Sign Guestbook"></div>
+      </form>
+    </div>
+    <div class="col-md-5">
+      <form>
+        <label>Guest Name</label>
+        <input class="form-control" value="{{ guestbook_name }}" name="guestbook_name">
+        <input class="btn btn-primary" type="submit" value="switch">
+      </form>
+    </div>
+  </div>
+  <hr>
 
-    <a href="{{ url|safe }}">{{ url_linktext }}</a>
+  <a href="{{ url|safe }}">{{ url_linktext }}</a>
+</div>
 {%endblock%}
