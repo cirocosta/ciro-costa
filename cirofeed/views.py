@@ -6,11 +6,13 @@ from cirofeed.models import Article,Source,Category
 
 class IndexPage(webapp2.RequestHandler):
     def get(self):
+        articles = Article.query().order(-Article.published).fetch(20)
         categories = Category.query()
         sources = Source.query()
         template_values = {
+            'articles'      :   articles,
             'categories'    :   categories,
-            'sources'       :   sources
+            'sources'       :   sources,
         }        
 
         template = settings.JINJA_ENVIRONMENT.get_template(\
@@ -62,7 +64,7 @@ class SourcesAdd(webapp2.RequestHandler):
         category = self.request.get('source_category')
         url = self.request.get('source_link')
 
-        if link != None and name != None:
+        if url != None and name != None:
             category_iter = Category.query(Category.name == category).iter()
             try:
                 categ = category_iter.next()

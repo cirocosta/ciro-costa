@@ -31,14 +31,12 @@
 
       <h2 class="text-center">Latest</h2>
       <ul class="list-unstyled text-center">
+        {%for article in articles%}
         <li>
-          <a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</a><br>
-          <small><a><strong>reddit.com</strong></a> - <a>tecnologia</a> <span class="muted">Sun, 29 Dec 2013 10:58:27</span></small>
+          <a>{{article.title}}</a><br>
+          <small><a><strong>source name</strong></a> - <a>Category</a> <span class="muted">{{article.published}}</span></small>
         </li>
-        <li>
-          <a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</a><br>
-          <small><a><strong>reddit.com</strong></a> - <a>tecnologia</a> <span class="muted">Sun, 29 Dec 2013 10:58:27</span></small>
-        </li>
+        {%endfor%}
       </ul>
     </div>
 
