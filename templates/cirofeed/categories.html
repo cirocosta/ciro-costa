@@ -1,0 +1,87 @@
+{%extends 'base/base.html'%}
+{%block title%}Categories{%endblock%}
+{%block extrahead%}
+
+{%endblock%}
+{%block content%}
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/cirofeed">Cirofeed</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/cirofeed">Home</a></li>
+        <li class="active"><a href="/cirofeed/categories">Categories</a></li>
+        <li><a href="/cirofeed/sources">Sources</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-7">
+      <h2>New Category</h2>
+      <hr>
+      <form method="post" action="/cirofeed/categories/add">
+        <label>Name of the category</label>
+        <input class="form-control" name="category_name" placeholder="Technology, Business"/>
+        <span class="help-block">
+          This is the name that will be used to 
+          filter the content and also the sources.
+        </span>
+
+        <label>Description</label>
+        <input class="form-control" name="category_description" placeholder="Technology, Business"/>
+        <span class="help-block">
+          This is the description of the category that will remind you 
+          what the category is about.
+        </span>
+        <button type="submit" class="btn btn-success">Save!</button>
+      </form>
+      <br>
+
+      <h2>Edit Categories</h2>
+      <hr>
+      <form>
+        <label>Which Category</label>
+        <select class="form-control">
+          {%for category in categories%}
+          <option vale="{{category.name}}">{{category.name}}</option>
+          {%endfor%}
+        </select>
+        <span class="help-block">
+          Select the category that you want to edit its content
+        </span>
+
+        <label>New Name</label>
+        <input class="form-control" placeholder="Technology, Business"/>
+        <span class="help-block">
+          Type the new name of the category
+        </span>
+
+        <label>New Description</label>
+        <input class="form-control" placeholder="Technology, Business"/>
+        <span class="help-block">
+          Type the new description of the category. Let it 'null' for not changing anything.
+        </span>
+        <button type="submit" class="btn btn-success">Save!</button>
+      </form>
+      <br>
+    </div>
+    <div class="col-md-5">
+      <h2>Categories</h2>
+      <hr>
+      <ul class="list-unstyled">
+        {%for category in categories%}
+        <li><a>{{category.name}} - <small class="text-muted">{{category.description}}</small></a></li>
+        {%endfor%}
+      </ul>
+    </div>
+  </div>
+
+</div>
+{%endblock%}

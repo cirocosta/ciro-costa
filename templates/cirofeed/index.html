@@ -1,0 +1,64 @@
+{%extends 'base/base.html'%}
+{%block title%}Cirofeed{%endblock%}
+{%block extrahead%}
+
+{%endblock%}
+
+{%block content%}
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/cirofeed">Cirofeed</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/cirofeed">Home</a></li>
+        <li><a href="/cirofeed/categories">Categories</a></li>
+        <li><a href="/cirofeed/sources">Sources</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <br>
+      <form>
+        <input class="form-control" placeholder="NSA, Android, Brazil ..."/>
+      </form>
+
+      <h2 class="text-center">Latest</h2>
+      <ul class="list-unstyled text-center">
+        <li>
+          <a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</a><br>
+          <small><a><strong>reddit.com</strong></a> - <a>tecnologia</a> <span class="muted">Sun, 29 Dec 2013 10:58:27</span></small>
+        </li>
+        <li>
+          <a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</a><br>
+          <small><a><strong>reddit.com</strong></a> - <a>tecnologia</a> <span class="muted">Sun, 29 Dec 2013 10:58:27</span></small>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-4">
+      <h2>Categories</h2>
+      <ul class="list-unstyled">
+        {%for category in categories%}
+        <li><a>{{category.name}}</a></li>
+        {%endfor%}
+      </ul>
+
+      <h2>Sources</h2>
+      <ul class="list-unstyled">
+        {%for source in sources%}
+        <li><a>{{source.name}}</a></li>
+        {%endfor%}
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+{%endblock%}
