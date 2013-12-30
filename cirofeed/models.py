@@ -4,6 +4,7 @@ class Category(ndb.Model):
     name = ndb.StringProperty()
     description = ndb.TextProperty()
 
+
 class Source(ndb.Model):
     name = ndb.StringProperty(indexed=True)
     url = ndb.StringProperty()
@@ -11,6 +12,7 @@ class Source(ndb.Model):
     description = ndb.TextProperty()
     etag = ndb.StringProperty()
     category = ndb.KeyProperty(kind=Category)
+
 
 class Article(ndb.Model):
     title = ndb.StringProperty(indexed=True)

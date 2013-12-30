@@ -51,7 +51,7 @@
       <h2>Sources</h2>
       <ul class="list-unstyled">
         {%for source in sources%}
-        <li><a>{{source.name}}</a></li>
+        <li><a href="/cirofeed/sources/details/{{source.key.urlsafe()}}">{{source.name}}</a></li>
         {%endfor%}
       </ul>
     </div>

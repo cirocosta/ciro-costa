@@ -12,5 +12,8 @@ application = webapp2.WSGIApplication([
     ('/cirofeed/categories',    cirofeed.views.CategoriesPage),
     ('/cirofeed/categories/add',cirofeed.views.CategoriesAdd),
     ('/cirofeed/sources',       cirofeed.views.SourcesPage),
+    ('/cirofeed/sources/delete',cirofeed.views.SourcesDelete),
     ('/cirofeed/sources/add',   cirofeed.views.SourcesAdd),
+    ('/cirofeed/sources/details/([a-zA-Z0-9\-\_]+)',\
+    	cirofeed.views.SourcesDetails),
 ], debug=settings.DEBUG)

@@ -8,6 +8,11 @@ para database.
 
 Buscar como tornar multi-thread depois. 
 """
+
+class FeedParserEtagException(Exception):
+    pass
+
+
 class Parser(object):
     def __init__(self):
         self.getSources()
@@ -24,32 +29,35 @@ class Parser(object):
             d = feedparser.parse(source.url,etag=source.etag)
         else:
             d = feedparser.parse(source.url)
-
-        if d.status == 200:
-            source.etag = d.etag
-            articles = list()
-            for entry in d.entries:
-
-                title = entry.title \
-                    if entry.has_key('title') \
-                    else None
-                summary = entry.summary \
-                    if entry.has_key('summary') \
-                    else None
-                description = entry.description \
-                    if entry.has_key('description') \
-                    else None
-                link = entry.link \
-                    if entry.has_key('link') \
-                    else None 
-
-                article = Article(parent=ndb.Key('Article',source.name),\
-                    published=datetime(*entry.published_parsed[:6]),\
-                    source=source.key,title=title,description=description,\
-                    summary=summary,link=link)
-                articles.append(article)
-            self.bulkEntityInsertion(articles)
-            source.put()
+        save_in_db = False
+        articles = []
+        if d.has_key('status'):
+            if d.status == 200:
+                if d.has_key('etag'):
+                    save_in_db = True
+                    source.etag = d.etag
+                for entry in d.entries:
+                    title = entry.title \
+                        if entry.has_key('title') \
+                        else None
+                    summary = entry.summary \
+                        if entry.has_key('summary') \
+                        else None
+                    description = entry.description \
+                        if entry.has_key('description') \
+                        else None
+                    link = entry.link \
+                        if entry.has_key('link') \
+                        else None 
+                    article = Article(parent=ndb.Key('Article',source.name),\
+                        published=datetime(*entry.published_parsed[:6]),\
+                        source=source.key,title=title,description=description,\
+                        summary=summary,link=link)
+                    articles.append(article)
+                if save_in_db:
+                    self.bulkEntityInsertion(articles)
+                    source.put()
+        print articles
 
     @ndb.transactional
     def bulkEntityInsertion(self,entities):

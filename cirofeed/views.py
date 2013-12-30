@@ -56,6 +56,17 @@ class SourcesPage(webapp2.RequestHandler):
             'cirofeed/sources.html')
         self.response.write(template.render(template_values))
 
+class SourcesDetails(webapp2.RequestHandler):
+    def get(self,source_key):
+        s_key = ndb.Key(urlsafe=source_key)
+        source = s_key.get()
+        template_values = {
+            'source'    :   source,
+        }
+        template = settings.JINJA_ENVIRONMENT.get_template(\
+            'cirofeed/sources_details.html')
+        self.response.write(template.render(template_values))        
+
 
 class SourcesAdd(webapp2.RequestHandler):
     def post(self):
@@ -73,6 +84,12 @@ class SourcesAdd(webapp2.RequestHandler):
                 source.put()
             except StopIteration:
                 categ = None
+        self.redirect('/cirofeed/sources')
+
+class SourcesDelete(webapp2.RequestHandler):
+    def post(self):
+        source_key = self.request.get('source_key')
+        ndb.Key(urlsafe=source_key).delete()
         self.redirect('/cirofeed/sources')
 
 
